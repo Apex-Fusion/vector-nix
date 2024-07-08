@@ -48,8 +48,8 @@ let
 
   mkTopology = env: let
     legacyTopology = mkEdgeTopology {
-      edgeNodes = [env.relaysNew];
-      valency = 2;
+      edgeNodes = env.relaysNew;
+      valency = env.valency or 2;
       edgePort = env.edgePort or 3001;
     };
     p2pTopology = mkEdgeTopologyP2P {
@@ -242,6 +242,33 @@ let
       edgePort = 30007;
       networkConfig = import ./private-config.nix;
       usePeersFromLedgerAfterSlot = 32000;
+    };
+
+    vector_testnet = rec {
+      useByronWallet = false;
+      private = true;
+      domain = "vector.testnet.apexfusion.org";
+      relaysNew = [
+          "relay-0.vector.testnet.apexfusion.org"
+          "relay-1.vector.testnet.apexfusion.org"
+        ];
+      valency = 1;
+      explorerUrl = "https://beta-explorer.vector.testnet.apexfusion.org/";
+      smashUrl = "https://smash.vector.testnet.apexfusion.org/";
+      metadataUrl = "https://metadata.prime.testnet.apexfusion.org/";
+      edgeNodes = [
+        {
+          addr = "relay-0.vector.testnet.apexfusion.org";
+          port = 7522;
+        }
+        {
+          addr = "relay-1.vector.testnet.apexfusion.org";
+          port = 7522;
+        }
+      ];
+      edgePort = 7522;
+      networkConfig = import ./vector-testnet-config.nix;
+      usePeersFromLedgerAfterSlot = -1;
     };
   };
 
