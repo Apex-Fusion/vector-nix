@@ -7,7 +7,7 @@ jobs:
         matrix:
           os: [ubuntu-latest, windows-latest, macos-latest]
     name: GitHub Action integration test
-    runs-on: ${{ matrix.os == 'ubuntu-latest' && 'nixos' || matrix.os }}
+    runs-on: ${{ matrix.os == 'ubuntu-latest' && 'self-hosted' || matrix.os }}
     steps:
     - uses: input-output-hk/actions/base@latest
     - name: Check pkg-config
